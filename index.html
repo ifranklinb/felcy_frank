@@ -1,0 +1,232 @@
+<!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <title>Our Anniversary — August 16</title>
+      <style>
+        :root{
+          --bg:#fff6f8;
+          --card:#ffffff;
+          --accent:#ff4d6d;
+          --muted:#6b6b6b;
+          --glass: rgba(255,255,255,0.6);
+          font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
+        *{box-sizing:border-box}
+        body{margin:0; background:linear-gradient(180deg, var(--bg), #fff); color:#222}
+        .wrap{max-width:980px; margin:40px auto; padding:28px}
+        header{display:flex;align-items:center;gap:20px}
+        .logo{width:74px;height:74px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#ff8aa0);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;box-shadow:0 8px 24px rgba(255,77,109,0.16)}
+        h1{margin:0;font-size:28px}
+        p.lead{margin-top:6px;color:var(--muted)}
+    
+        .hero{display:grid;grid-template-columns:1fr 320px;gap:24px;margin-top:26px}
+        .card{background:var(--card);border-radius:14px;padding:20px;box-shadow:0 8px 30px rgba(13,13,13,0.06)}
+        .story{line-height:1.5}
+    
+        .photos{
+          display:flex;
+          gap:10px;
+          justify-content:center;
+        }
+        .photo{
+          width:48%;
+          height:320px;
+          border-radius:10px;
+          background-size:contain;
+          background-position:center;
+          background-repeat:no-repeat;
+          transition: opacity 1s ease-in-out;
+          opacity: 0;
+        }
+        .photo.show{
+          opacity: 1;
+        }
+    
+        .countdown{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px}
+        .timegrid{display:flex;gap:10px}
+        .timegrid > div{background:var(--glass);padding:10px 14px;border-radius:10px;min-width:62px;text-align:center}
+        .timegrid small{display:block;color:var(--muted);font-size:11px}
+        .cta{display:flex;gap:10px;margin-top:14px}
+        .btn{padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:white;cursor:pointer}
+    
+        .timeline{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+        .event{display:flex;gap:12px;align-items:flex-start}
+        .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:6px}
+        footer{margin-top:30px;text-align:center;color:var(--muted);font-size:13px}
+    
+        @media (max-width:880px){
+          .hero{grid-template-columns:1fr}
+          .photos { flex-direction: column; }
+          .photo { width:100%; }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="wrap">
+        <header>
+          <div class="logo">❤</div>
+          <div>
+            <h1>To My Love — Happy Anniversary</h1>
+            <p class="lead">Celebrating our journey together. August 16 — our special day.</p>
+          </div>
+        </header>
+    
+        <div class="hero">
+          <section class="card story">
+            <h2>Our Story</h2>
+            <p>We started sharing moments long ago — a Infatuation that grew into love. I first felt something in <strong>May 2009</strong>, and our relationship became official on <strong>August 16, 2014</strong>. This little page is to celebrate every laugh, every challenge and every quiet moment we've spent together.</p>
+    
+            <div class="timeline">
+              <div class="event"><div class="dot"></div><div><strong>May 2009</strong> — First shy smiles, the start of something special.</div></div>
+              <div class="event"><div class="dot"></div><div><strong>Aug 16, 2014</strong> — We said yes to us. Our anniversary.</div></div>
+              <div class="event"><div class="dot"></div><div><strong>Today</strong> — Holding hands and building dreams.</div></div>
+            </div>
+    
+            <h3 style="margin-top:18px">Notes & Wishes</h3>
+            <textarea id="wish" rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid #eee"></textarea>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button class="btn" onclick="saveWish()">Save Message</button>
+              <button class="btn" style="background:#777" onclick="clearWish()">Clear</button>
+            </div>
+    
+            <div id="showWish" style="margin-top:12px;color:var(--accent);font-weight:600"></div>
+          </section>
+    
+          <aside class="card countdown">
+            <div style="text-align:center">
+              <h3 style="margin:0">Countdown to August 16</h3>
+              <p style="margin:6px 0 0;color:var(--muted);font-size:13px">Time until our next anniversary</p>
+            </div>
+    
+            <div class="timegrid" id="timegrid">
+              <div><div id="days">0</div><small>Days</small></div>
+              <div><div id="hours">0</div><small>Hours</small></div>
+              <div><div id="mins">0</div><small>Minutes</small></div>
+              <div><div id="secs">0</div><small>Seconds</small></div>
+            </div>
+    
+            <div class="cta">
+              <button class="btn" onclick="togglePhotos()">Toggle Photos</button>
+              <button class="btn" onclick="downloadPage()">Download</button>
+            </div>
+          </aside>
+        </div>
+    
+        <section class="card" style="margin-top:18px">
+          <h3>Photos</h3>
+          <div class="photos">
+            <div class="photo" id="left-photo"></div>
+            <div class="photo" id="right-photo"></div>
+          </div>
+        </section>
+    
+        <footer>
+          <div>Made with ♥ for you</div>
+          <div style="margin-top:6px;color:var(--muted)">August 16 — <span id="since">2025</span></div>
+        </footer>
+      </div>
+    
+      <script>
+        // Countdown
+        function nextAnniversary(){
+          const now = new Date();
+          let year = now.getFullYear();
+          const target = new Date(year, 7, 16, 0,0,0);
+          if(now > target) target.setFullYear(year+1);
+          return target;
+        }
+        function refreshCountdown(){
+          const t = nextAnniversary();
+          const now = new Date();
+          let diff = Math.max(0, t - now);
+          const days = Math.floor(diff / (1000*60*60*24));
+          diff -= days*(1000*60*60*24);
+          const hours = Math.floor(diff / (1000*60*60));
+          diff -= hours*(1000*60*60);
+          const mins = Math.floor(diff / (1000*60));
+          diff -= mins*(1000*60);
+          const secs = Math.floor(diff/1000);
+          document.getElementById('days').textContent = days;
+          document.getElementById('hours').textContent = hours;
+          document.getElementById('mins').textContent = mins;
+          document.getElementById('secs').textContent = secs;
+        }
+        setInterval(refreshCountdown, 1000);
+        refreshCountdown();
+    
+        // Wishes
+        function saveWish(){
+          const t = document.getElementById('wish').value.trim();
+          localStorage.setItem('ann_wish', t);
+          showSaved();
+        }
+        function clearWish(){
+          localStorage.removeItem('ann_wish');
+          document.getElementById('wish').value = '';
+          showSaved();
+        }
+        function showSaved(){
+          const s = localStorage.getItem('ann_wish')||'';
+          document.getElementById('showWish').textContent = s ? 'Saved message: "'+s+'"' : '';
+        }
+        showSaved();
+    
+        // Toggle photos
+        function togglePhotos(){
+          const p = document.querySelector('.photos');
+          p.style.display = p.style.display === 'none' ? 'flex' : 'none';
+        }
+        function downloadPage(){
+          const blob = new Blob([document.documentElement.outerHTML], {type:'text/html'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = 'anniversary_page.html';
+          a.click();
+          URL.revokeObjectURL(url);
+        }
+    
+        // Slideshow with both sides changing every cycle
+        const images = [
+        "images/1.jpg","images/21.jpg","images/16.jpg","images/13.jpg",
+        "images/17.jpg","images/2.jpg","images/3.jpg","images/11.jpg",
+        "images/7.jpg","images/20.jpg","images/9.jpg","images/4.jpg",
+        "images/14.jpg",
+        "images/12.jpg",
+        "images/19.jpg",
+        "images/8.jpg",
+        "images/5.jpg",
+        "images/18.jpg",
+        "images/15.jpg",
+        "images/10.jpg",
+        "images/6.jpg",
+        ];
+
+        let leftIndex = 0;
+        let rightIndex = 1;
+        const leftPhotoEl = document.getElementById('left-photo');
+        const rightPhotoEl = document.getElementById('right-photo');
+    
+        function changePhotos(){
+          leftPhotoEl.classList.remove('show');
+          rightPhotoEl.classList.remove('show');
+          setTimeout(() => {
+            leftPhotoEl.style.backgroundImage = `url('${images[leftIndex]}')`;
+            rightPhotoEl.style.backgroundImage = `url('${images[rightIndex]}')`;
+            leftPhotoEl.classList.add('show');
+            rightPhotoEl.classList.add('show');
+            leftIndex = (leftIndex + 2) % images.length;
+            rightIndex = (rightIndex + 2) % images.length;
+            if (rightIndex === leftIndex) {
+              rightIndex = (rightIndex + 1) % images.length;
+            }
+          }, 500);
+        }
+    
+        changePhotos();
+        setInterval(changePhotos, 5000);
+      </script>
+    </body>
+    </html>
+    
